@@ -177,7 +177,10 @@ button{
   background-color: #e1e2e1;
   overflow-y: scroll;
 }
-
+#eat-me-first .exp-text{
+  margin-right:15px;
+  white-space: nowrap;
+}
 #recipes{
   border-radius: 20px 20px 0px 0px;
   height: 70px;
@@ -260,9 +263,13 @@ font-size: 20;
 /* food select buttons */
 .food-btn-section button {
   margin-right: 5px;
+  border-radius: 20px;
+  outline:none;
 }
 .food-btn{
-  width: 50px;
+  width: 35px;
+  padding: 3px;
+ border: none;
 }
 
 /* recipe btns */
@@ -325,12 +332,18 @@ font-size: 20;
   margin: 5%;
   border-radius: 10px;
 }
+#recipes-box .name-text{
+  color: #324440;
+  width: 300px;
+  text-overflow: ellipsis;
+  overflow: hidden; 
+}
 .recipe-link-btn{
   white-space:nowrap;
   margin-right: 3%; 
   border-radius: 15px;
 	padding:8px 25px;
-  margin-top: 11%;
+  margin-top: 6%;
 	background:#548377;
 	border:none;
 	color:white;
@@ -344,4 +357,8 @@ font-size: 20;
 
 .recipe-link-btn:hover {
 	opacity:0.8;
+}
+
+.error-message{
+  margin:0px;
 }

@@ -5,18 +5,18 @@ import FoodCard from './FoodCard';
 
 
 function App() {
-// const [foodTypes, setFoodTypes] = useState(["carb","veg","poultry","dairy","dessert"]);
 const [selectedFoodType, setSelectedFoodType] = useState("carbs");
 const [foodList, setFoodList] = useState([
-  {name: 'apple', expiryDate: '2022-02-11' , type: 'greens'},
-  {name: 'salmon', expiryDate: '2022-03-05', type: 'carbs'},
-  {name: 'eggs', expiryDate: '2022-02-07', type: 'dairy'}
+  {name: 'apples', expiryDate: '2022-02-11' , type: 'greens'},
+  {name: 'tuna', expiryDate: '2022-03-05', type: 'meat'},
+  {name: 'yogurt', expiryDate: '2022-02-07', type: 'dairy'}
 ]);
 const [food, setFood] = useState({});
 const [ingredient, setIngredient] = useState("");
 const [recipeList, setRecipeList] = useState([]);
 const [isCorrectFoodInput, setIsCorrectFoodInput] = useState('null');
-const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=15&ignorePantry=true&ranking=1&apiKey="
+const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=25&ignorePantry=true&ranking=1&apiKey="
+// const apiKey = "d5fd492ec3e34de9a7c983c5ca8fad14"; new api key
 const apiKey = "9afbea738e1647bc8b27819d46cf595e";
 
 const date = new Date();
@@ -25,7 +25,6 @@ const dateAfterOneWeek = date.setDate(date.getDate() + 7);
 const isoStringDateAfterOneWeek = date.toISOString().split('T')[0];
 
 const fetchData = async () => {
-   // filter the food list to only have where food.expiryDate < dateAfterOne
   const nearExpireFoodArr = await foodList.filter((food,index)=>{
     return food.expiryDate < isoStringDateAfterOneWeek;
   })
@@ -49,7 +48,7 @@ const handleOnDateChange = (event) =>{
 }
 const handleOnAdd = () =>{
   console.log(food.name , food.expiryDate);
-  if(food.name!==" " && food.expiryDate){
+  if(food.name!==undefined && food.name!=="" && food.expiryDate ){
     setFoodList([...foodList, {...food, type: selectedFoodType}]);
     setIsCorrectFoodInput(true)
   }else{
@@ -79,12 +78,12 @@ const fetchRecipeInfo = async (recipe) =>{
 }
   return (
     <div className="bg">
-      <h1>Your Pantry: Food Inventory Tracker</h1>
+      <h1>Your Pantry: Zero-Waste Recipes</h1>
       <hr></hr>
       
       <div id="container">
         <div className='titles'>
-          <h2>Pantry at a Glance</h2>
+          <h2>Pantry</h2>
           <div id='pantry'>
             <h3 className='table-header'>Recent Items</h3>
             <h3 className='table-date'>Expiry Date</h3>
@@ -108,17 +107,17 @@ const fetchRecipeInfo = async (recipe) =>{
           </div>
           <div className='food-btn-section'>
             {['greens', 'carbs', 'meat', 'dairy', 'sugar'].map((type) => {
-              return <button onClick={() => setSelectedFoodType(type)} style={{ border: selectedFoodType === type ? '5px solid green' : '' }}>
+              return <button onClick={() => setSelectedFoodType(type)} style={{ border: selectedFoodType === type ? '5px solid #548377' : '' }}>
                 <img src={`icons/icon-${type}.svg`} className='food-btn' />
               </button>
             })}
           </div>
-          {isCorrectFoodInput === "null" || isCorrectFoodInput? null: <span>Please insert a food name and an expiry date!</span>}
+          {isCorrectFoodInput === "null" || isCorrectFoodInput? null: <h4 className="error-message">Please insert a food name and an expiry date!</h4>}
         </div>
         
         <div className='titles'>
           <h2 className='emf-text'>Eat Me First!</h2>
-          <h4 className='emf-subheading'>Food expiring within 1 week : </h4>
+          <h4 className='emf-subheading'>Food expiring within 1 week: </h4>
           <div id='eat-me-first'>
             {foodList.map((food, index)=>{
               return (
