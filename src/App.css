@@ -29,7 +29,14 @@ h3 {
 p {
   font-family: Open Sans Light;
 }
-
+hr {
+  border-style: solid;
+  border-width: 4px;
+  width: 27vw;
+  margin-left: 10vw;
+  margin-top: -15px;
+  color: #548377;
+}
 button{
    font-family: Nunito;
   font-weight: bold;
@@ -65,9 +72,10 @@ button{
 }
 
 #pantry{
-  border-radius: 20px 20px 0px 0px;
+  border-radius: 20px;
   display: flex;
-  height: 60px;
+  height: 55vh;
+  width: 25vw;
   background-color:#548377;
 }
 
@@ -75,10 +83,10 @@ button{
   position: relative;
   height: 50vh;
   border-radius: 20px;
-  margin-top: -10px;
+  margin-top: -50vh;
+  width: 25vw;
   overflow-y: scroll;
   background-color: #e1e2e1;
-  /* overflow-y: scroll; */
 }
 
 .table-header {
@@ -87,7 +95,9 @@ button{
 }
 
 .table-date {
-  margin:15px;
+  margin: 15px;
+  margin-left: auto;
+  margin-right: calc(5% + 150px);
   color: white;
 }
 
@@ -111,12 +121,14 @@ button{
 
 .exp-bar{
   width: 40%;
-  margin-left: 40px;
+  margin-left: auto;
+  margin-right: 5px;
 }
 
 .exp-text{
   font-size: 14px;
-  margin-left: 10px;
+  margin-right: 50px;
+  text-align: right;
 }
 
 .trashcan{
@@ -128,13 +140,12 @@ button{
   display: flex;
   margin: 10px;
   border-radius: 20px;
-  align-items: center;
   background-color: #f5f5f6;
 }
 
 .emf-text{
   margin-top: 85px;
-  margin-left: 5vw;
+  margin-left: 2vw;
 }
 
 #eat-me-first{
@@ -142,8 +153,8 @@ button{
   width: 20vw;
   border-radius: 20px;
   margin-top: -20px;
-  margin-left: 5vw;
-  margin-right: 5vw;
+  margin-left: 2vw;
+  margin-right: 2vw;
   background-color: #e1e2e1;
   overflow-y: scroll;
 }
@@ -156,6 +167,7 @@ button{
 }
 
 #recipes-box{
+  overflow-y: scroll;
   margin-top: -5px;
   height: 50vh;
   width: 30vw;
@@ -170,7 +182,7 @@ button{
 #input-system{
   display: flex;
   margin-left: auto;
-  
+
 }
 /* pantry input */
 .input-container-wrapper{
@@ -189,14 +201,19 @@ button{
   padding-left: 15px;
   margin-right: 10px;
   margin-top: 10px;
+  font-family: Open Sans Light;
+  font-size: 14px;
 }
 .date-input{
   height: 30px;
   margin-top: 10px;
   margin-right: 10px;
+  width: 150px;
   border-radius: 15px;
   outline: none;
   padding-left: 15px;
+  font-family: Open Sans Light;
+  font-size: 14px;
 }
 .add-btn{
 width: 100px;
@@ -252,10 +269,11 @@ cursor:pointer;
 }
 
 .delete-btn{
-  margin-right: 10px; 
+  margin-right: 3%; 
   border-radius: 15px;
 	padding:8px 25px;
-	width:auto;
+  margin-top: 3%;
+  margin-bottom: 3%;
 	background:#548377;
 	border:none;
 	color:white;

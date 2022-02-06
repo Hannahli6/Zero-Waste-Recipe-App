@@ -9,6 +9,7 @@ const [foodList, setFoodList] = useState([]);
 const [food, setFood] = useState({});
 const [ingredient, setIngredient] = useState("");
 const [recipeList, setRecipeList] = useState([]);
+const [foodsAboutToExpire, setFoodsAboutToExpire] = useState([]);
 const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=5&ignorePantry=true&ranking=1&apiKey="
 const apiKey = "9afbea738e1647bc8b27819d46cf595e";
 
@@ -18,10 +19,14 @@ const dateAfterOneWeek = date.setDate(date.getDate() + 7);
 const isoStringDateAfterOneWeek = date.toISOString().split('T')[0];
 
 const fetchData = async () => {
-  const ingredients = await foodList.map((food,index)=>{
+   // filter the food list to only have where food.expiryDate < dateAfterOne
+  const nearExpireFoodArr = await foodList.filter((food,index)=>{
+    return food.expiryDate < isoStringDateAfterOneWeek;
+  })
+  const nearExpireIngredients = await nearExpireFoodArr.map((food,index)=>{
     return food.name
   })
-  const ingredientsStr = await ingredients.join(`,+`)
+  const ingredientsStr = await nearExpireIngredients.join(`,+`)
   console.log(ingredientsStr)
   const response = await fetch(`${URL}${apiKey}&ingredients=${ingredientsStr}`);
   const recipeData = await response.json();
@@ -46,11 +51,25 @@ const handleOnFoodDelete = (event) =>{
   }); 
   setFoodList(newFoodList)
 }
+const goToNewLink = (spoonacularSourceUrl) =>{
+  window.open(`${spoonacularSourceUrl}`, "cooking-site")
+}
+const fetchRecipeInfo = async (recipe) =>{
+  const id= recipe.id;
+  const recipeURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${apiKey}`;
+  const response = await fetch(recipeURL);
+  const recipeData = await response.json()
+  console.log(recipeData);
+  const {spoonacularSourceUrl} = recipeData;
+  // call new fucntion to go new link
+  goToNewLink(spoonacularSourceUrl);
+}
   return (
     <div className="bg">
       <h1>Your Pantry: Food Inventory Tracker</h1>
-      <div id="container">
+      <hr></hr>
 
+      <div id="container">
         <div className='titles'>
           <h2>Pantry at a Glance</h2>
           <div id='pantry'>
@@ -103,6 +122,7 @@ const handleOnFoodDelete = (event) =>{
                     <div className='img-name'>
                       <img src={image} className='images'></img>
                       <p className='name-text'>{title}</p>
+                      <button className="recipe-link-btn" onClick={()=>fetchRecipeInfo(recipe)}>cook now!</button>
                     </div>
                   </div>
                 )

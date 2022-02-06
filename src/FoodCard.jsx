@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 function FoodCard ({name, date, index, handleOnFoodDelete, event}) {
   console.log()
   return (
-    <div class='food-box-individual'key={index}>
-      <div class='img-name'>
+    <div className='food-box-individual'key={index}>
+      <div className='img-name'>
         <img src='bred.jpg' class='images'></img>
-        <p class='name-text'>{name}</p>
+        <p className='name-text'>{name}</p>
       </div>
-      <div class= 'exp-bar'>
-        <p class='exp-text'>{date}</p>
+      <div className= 'exp-bar'>
+        <p className='exp-text'>{date}</p>
       </div>
        {handleOnFoodDelete?<button className="delete-btn" onClick={(event)=>handleOnFoodDelete(event)} id={index}>delete</button>:null}
       
