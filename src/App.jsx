@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import FoodCard from './FoodCard';
+import RecipeCard from './RecipeCard';
 
 function App() {
 const [foodList, setFoodList] = useState([]);
@@ -46,15 +47,14 @@ const handleOnFoodDelete = (event) =>{
   setFoodList(newFoodList)
 }
   return (
-    <body className='bg'>
-    <div>
+    <div className="bg">
       <h1>Your Pantry: Food Inventory Tracker</h1>
       <div id="container">
         <div className='titles'>
           <h2>Pantry at a Glance</h2>
           <div id='pantry'>
             <h3 className='table-header'>Recent Items</h3>
-            <h3 className='table-date'>Exp. Date</h3>
+            <h3 className='table-date'>Expiry Date</h3>
             <div></div>
           </div>
           <div className='food-box'>
@@ -64,11 +64,13 @@ const handleOnFoodDelete = (event) =>{
                 <FoodCard name={food.name} date={food.expiryDate} key={index} index={index} handleOnFoodDelete={(event)=>handleOnFoodDelete(event)}/>
             </div>)
             })}
-            <div className="input-container">
-              <input className="item-input" placeholder="item name" value={ingredient} onChange={handleOnNameChange}/>
-              <input className="date-input" placeholder="expiry date" type="date" onChange={handleOnDateChange}/>
-              <button className="add-btn" onClick={handleOnAdd}>Add</button>
+            <div className="input-container-wrapper">
+              <div className="input-container">
+                <input maxLength="18"className="item-input" placeholder="item name" value={ingredient} onChange={handleOnNameChange}/>
+                <input className="date-input" placeholder="expiry date" type="date" onChange={handleOnDateChange}/>
+              </div>
             </div>
+            <button className="add-btn" onClick={handleOnAdd}>Add Food</button>
           </div>
         </div>
         
@@ -89,18 +91,27 @@ const handleOnFoodDelete = (event) =>{
 
         <div className='titles'>
          <h2>Recipes</h2>
+         <button className = "find-recipe-btn" onClick={fetchData}>Fetch</button>
           <div id='recipes'>
             <p>Recipe API here</p>
             <div id='recipes-box'>
-              <p>ARGGGGGGG</p>
+              {recipeList.map((recipe, index)=>{
+                const {title, image} = recipe;
+                console.log(title, image);
+                return (
+                  <div className='food-box-individual' key={index}>
+                    <div className='img-name'>
+                      <img src={image} className='images'></img>
+                      <p className='name-text'>{title}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           </div>
         </div>
       </div>
-
-      
     </div>
-    </body>
   );
 }
 
