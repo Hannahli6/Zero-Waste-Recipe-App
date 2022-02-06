@@ -2,10 +2,16 @@
   "files": {
     "src/App.jsx": [
       {
+        "id": "9cc0f499-c2be-4bfe-964f-29b7909273de",
+        "line": 73,
+        "version": 6196,
+        "index": 2282
+      },
+      {
         "id": "1c0b3a48-e683-4f5a-8c28-acdb6b3d9fd3",
-        "line": 50,
-        "version": 3326,
-        "index": 1554
+        "line": 127,
+        "version": 6163,
+        "index": 4331
       }
     ],
     "src/FoodCard (copy).jsx": [
