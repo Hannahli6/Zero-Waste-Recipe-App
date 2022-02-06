@@ -1,17 +1,25 @@
 {
   "files": {
+    "src/App.css": [
+      {
+        "id": "3f5508cd-79ea-4159-b0fa-98363991017c",
+        "line": 153,
+        "version": 8692,
+        "index": 2303
+      }
+    ],
     "src/App.jsx": [
       {
         "id": "9cc0f499-c2be-4bfe-964f-29b7909273de",
-        "line": 73,
-        "version": 6196,
-        "index": 2282
+        "line": 12,
+        "version": 6501,
+        "index": 361
       },
       {
         "id": "1c0b3a48-e683-4f5a-8c28-acdb6b3d9fd3",
-        "line": 127,
-        "version": 6163,
-        "index": 4331
+        "line": 155,
+        "version": 6501,
+        "index": 5758
       }
     ],
     "src/FoodCard (copy).jsx": [

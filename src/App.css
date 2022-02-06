@@ -21,10 +21,18 @@ h2 {
   font-size: 30px;
   font-weight: normal;
   color: #548377;
+  margin: 0px;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 h3 {
   font-family: Nunito;
   font-weight: bold;
+}
+h4 {
+  font-family: Nunito;
+  font-weight: bold;
+  color: #548377;
 }
 p {
   font-family: Open Sans Light;
@@ -102,7 +110,7 @@ button{
 .table-date {
   margin: 15px;
   margin-left: auto;
-  margin-right: calc(5% + 150px);
+  margin-right: calc(5% + 110px);
   color: white;
 }
 
@@ -152,8 +160,13 @@ button{
 .emf-text{
   margin-top: 85px;
   margin-left: 2vw;
+  margin-bottom:0px; 
 }
-
+.emf-subheading{
+  margin-top:0; 
+  margin-left: 2vw;
+  margin-bottom:40px; 
+}
 #eat-me-first{
   height: 35vh;
   width: 20vw;
@@ -230,6 +243,7 @@ background:#548377;
 border:none;
 color:white;
 cursor:pointer;
+font-size: 20;
 -webkit-transition:0.2s ease all;
     -moz-transition:0.2s ease all;
     -ms-transition:0.2s ease all;
@@ -243,6 +257,14 @@ cursor:pointer;
  .add-btn:active {
 	opacity:0.4;
 }
+/* food select buttons */
+.food-btn-section button {
+  margin-right: 5px;
+}
+.food-btn{
+  width: 50px;
+}
+
 /* recipe btns */
 .recipe-section-btns{
   margin-top: 10px;

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-function FoodCard ({name, date, index, handleOnFoodDelete, event}) {
+function FoodCard ({name, date, index, handleOnFoodDelete, event, foodType}) {
   console.log()
+  const imgURL = "icons/icon-"+ foodType + ".svg";
   return (
     <div className='food-box-individual'key={index}>
       <div className='img-name'>
-        <img src='bred.jpg' class='images'></img>
+        <img src={imgURL} class='images'></img>
         <p className='name-text'>{name}</p>
       </div>
       <div className= 'exp-bar'>

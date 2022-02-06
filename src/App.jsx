@@ -5,12 +5,18 @@ import FoodCard from './FoodCard';
 
 
 function App() {
-const [foodList, setFoodList] = useState([]);
+// const [foodTypes, setFoodTypes] = useState(["carb","veg","poultry","dairy","dessert"]);
+const [selectedFoodType, setSelectedFoodType] = useState("carbs");
+const [foodList, setFoodList] = useState([
+  {name: 'apple', expiryDate: '2022-02-11' , type: 'greens'},
+  {name: 'salmon', expiryDate: '2022-03-05', type: 'carbs'},
+  {name: 'eggs', expiryDate: '2022-02-07', type: 'dairy'}
+]);
 const [food, setFood] = useState({});
 const [ingredient, setIngredient] = useState("");
 const [recipeList, setRecipeList] = useState([]);
 const [isCorrectFoodInput, setIsCorrectFoodInput] = useState('null');
-const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=10&ignorePantry=true&ranking=1&apiKey="
+const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=15&ignorePantry=true&ranking=1&apiKey="
 const apiKey = "9afbea738e1647bc8b27819d46cf595e";
 
 const date = new Date();
@@ -44,7 +50,7 @@ const handleOnDateChange = (event) =>{
 const handleOnAdd = () =>{
   console.log(food.name , food.expiryDate);
   if(food.name!==" " && food.expiryDate){
-    setFoodList([...foodList,food]);
+    setFoodList([...foodList, {...food, type: selectedFoodType}]);
     setIsCorrectFoodInput(true)
   }else{
     setIsCorrectFoodInput(false)
@@ -75,7 +81,7 @@ const fetchRecipeInfo = async (recipe) =>{
     <div className="bg">
       <h1>Your Pantry: Food Inventory Tracker</h1>
       <hr></hr>
-
+      
       <div id="container">
         <div className='titles'>
           <h2>Pantry at a Glance</h2>
@@ -87,7 +93,7 @@ const fetchRecipeInfo = async (recipe) =>{
             {foodList.map((food, index)=>{
             return (
               <div className="expire-food-container" key={index}>
-                <FoodCard name={food.name} date={food.expiryDate} key={index} index={index} handleOnFoodDelete={(event)=>handleOnFoodDelete(event)}/>
+                <FoodCard name={food.name} date={food.expiryDate} key={index} index={index} handleOnFoodDelete={(event)=>handleOnFoodDelete(event)} foodType={food.type}/>
             </div>)
             })}
           </div>
@@ -95,22 +101,30 @@ const fetchRecipeInfo = async (recipe) =>{
             <div className="input-container-wrapper">
               <div className="input-container">
                 <input pattern="[A-Za-z]+" type="text" maxLength="18"className="item-input" placeholder="item name" value={ingredient} onChange={handleOnNameChange}/>
-                <input className="date-input" placeholder="expiry date" type="date" min="2022-02-05" onChange={handleOnDateChange}/>
+                <input className="date-input" placeholder="expiry date" type="date" min="2022-02-05" onChange={handleOnDateChange} />
               </div>
             </div>
             <button className="add-btn" onClick={handleOnAdd}>Add Food</button>
+          </div>
+          <div className='food-btn-section'>
+            {['greens', 'carbs', 'meat', 'dairy', 'sugar'].map((type) => {
+              return <button onClick={() => setSelectedFoodType(type)} style={{ border: selectedFoodType === type ? '5px solid green' : '' }}>
+                <img src={`icons/icon-${type}.svg`} className='food-btn' />
+              </button>
+            })}
           </div>
           {isCorrectFoodInput === "null" || isCorrectFoodInput? null: <span>Please insert a food name and an expiry date!</span>}
         </div>
         
         <div className='titles'>
           <h2 className='emf-text'>Eat Me First!</h2>
+          <h4 className='emf-subheading'>Food expiring within 1 week : </h4>
           <div id='eat-me-first'>
             {foodList.map((food, index)=>{
               return (
               <div className="">
                 {food.expiryDate < isoStringDateAfterOneWeek? 
-                <FoodCard name={food.name} date={food.expiryDate} key={index} index={index}/> : null}
+                <FoodCard name={food.name} date={food.expiryDate} key={index} index={index} foodType={food.type}/> : null}
               </div>
               )
             })}
