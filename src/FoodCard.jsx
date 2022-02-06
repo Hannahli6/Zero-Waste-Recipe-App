@@ -11,7 +11,9 @@ function FoodCard ({name, date, index, handleOnFoodDelete, event}) {
       <div className= 'exp-bar'>
         <p className='exp-text'>{date}</p>
       </div>
-       {handleOnFoodDelete?<button className="delete-btn" onClick={(event)=>handleOnFoodDelete(event)} id={index}>delete</button>:null}
+       {handleOnFoodDelete?<button className="delete-btn" onClick={(event)=>handleOnFoodDelete(event)} id={index}>
+       <img src='can.svg' class='can-img'></img>
+       </button>:null}
       
     </div>
   )

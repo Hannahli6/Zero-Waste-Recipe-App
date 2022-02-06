@@ -9,8 +9,8 @@ const [foodList, setFoodList] = useState([]);
 const [food, setFood] = useState({});
 const [ingredient, setIngredient] = useState("");
 const [recipeList, setRecipeList] = useState([]);
-const [foodsAboutToExpire, setFoodsAboutToExpire] = useState([]);
-const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=5&ignorePantry=true&ranking=1&apiKey="
+const [isCorrectFoodInput, setIsCorrectFoodInput] = useState('null');
+const URL = "https://api.spoonacular.com/recipes/findByIngredients?number=10&ignorePantry=true&ranking=1&apiKey="
 const apiKey = "9afbea738e1647bc8b27819d46cf595e";
 
 const date = new Date();
@@ -34,7 +34,7 @@ const fetchData = async () => {
 }
 
 const handleOnNameChange = (event) =>{
-  setFood({name: event.target.value});
+  setFood({...food, name: event.target.value});
   setIngredient(event.target.value);
   
 }
@@ -42,7 +42,14 @@ const handleOnDateChange = (event) =>{
   setFood({...food, expiryDate: event.target.value});
 }
 const handleOnAdd = () =>{
+  console.log(food.name , food.expiryDate);
+  if(food.name!==" " && food.expiryDate){
     setFoodList([...foodList,food]);
+    setIsCorrectFoodInput(true)
+  }else{
+    setIsCorrectFoodInput(false)
+    return null;
+  }
 }
 const handleOnFoodDelete = (event) =>{
   const id = Number(event.target.id);
@@ -93,6 +100,7 @@ const fetchRecipeInfo = async (recipe) =>{
             </div>
             <button className="add-btn" onClick={handleOnAdd}>Add Food</button>
           </div>
+          {isCorrectFoodInput === "null" || isCorrectFoodInput? null: <span>Please insert a food name and an expiry date!</span>}
         </div>
         
         <div className='titles'>
@@ -121,8 +129,11 @@ const fetchRecipeInfo = async (recipe) =>{
                   <div className='food-box-individual' key={index}>
                     <div className='img-name'>
                       <img src={image} className='images'></img>
-                      <p className='name-text'>{title}</p>
-                      <button className="recipe-link-btn" onClick={()=>fetchRecipeInfo(recipe)}>cook now!</button>
+                      <div>
+                        <p className='name-text'>{title}</p>
+                        <button className="recipe-link-btn" onClick={()=>fetchRecipeInfo(recipe)}>cook now!</button>
+                      </div>
+                     
                     </div>
                   </div>
                 )
