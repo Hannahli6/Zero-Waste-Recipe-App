@@ -8,7 +8,6 @@ main {
   padding: 0;
   box-sizing: border-box;
   font-family: "Quicksand", sans-serif;
-  font-weight: 700;
 }
 
 @font-face {
@@ -57,9 +56,11 @@ button {
 }
 body {
   /* height: 100vh; */
-  background-image: url(background.svg);
+  background-image: url(../images/background.svg);
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: #ffffffbe;
+   background-blend-mode: lighten;
 }
 .app {
   /* The image used */
@@ -111,7 +112,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
 }
 
 #pantry {
@@ -177,13 +178,13 @@ body {
 
 .food-box-individual {
   display: flex;
-  border-radius: 20px;
+  border-radius: 15px;
   background-color: #f5f5f6;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   width: 100%;
   gap: 20px;
-  padding: 10px;
+  padding: 10px 15px;
 }
 #eat-me-first {
   height: 45vh;
@@ -310,6 +311,9 @@ body {
   border: none;
 }
 
+.recipe-section{
+  max-width: 450px;
+}
 /* recipe btns */
 .recipe-section-btns {
   margin-top: 10px;

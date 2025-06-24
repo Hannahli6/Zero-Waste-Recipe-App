@@ -122,7 +122,7 @@ function App() {
                     onClick={() => setSelectedFoodType(type)}
                     style={{
                       border:
-                        selectedFoodType === type ? "5px solid #548377" : "",
+                        selectedFoodType === type ? "3px solid #548377" : "",
                     }}
                   >
                     <img src={`icons/icon-${type}.svg`} className="food-btn" />
