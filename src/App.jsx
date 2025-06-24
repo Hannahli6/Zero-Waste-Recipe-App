@@ -101,37 +101,35 @@ function App() {
           <div className="food-box">
             {foodList.map((food, index) => {
               return (
-                <div className="expire-food-container" key={index}>
-                  <FoodCard
-                    name={food.name}
-                    date={food.expiryDate}
-                    key={index}
-                    index={index}
-                    handleOnFoodDelete={(event) => handleOnFoodDelete(event)}
-                    foodType={food.type}
-                  />
-                </div>
+                <FoodCard
+                  name={food.name}
+                  date={food.expiryDate}
+                  key={index}
+                  index={index}
+                  handleOnFoodDelete={(event) => handleOnFoodDelete(event)}
+                  foodType={food.type}
+                />
               );
             })}
           </div>
-          
+
           <div id="input-system">
             <div className="food-btn-section">
-            {["greens", "carbs", "meat", "dairy", "sugar"].map((type) => {
-              return (
-                <button
-                  key={type}
-                  onClick={() => setSelectedFoodType(type)}
-                  style={{
-                    border:
-                      selectedFoodType === type ? "5px solid #548377" : "",
-                  }}
-                >
-                  <img src={`icons/icon-${type}.svg`} className="food-btn" />
-                </button>
-              );
-            })}
-          </div>
+              {["greens", "carbs", "meat", "dairy", "sugar"].map((type) => {
+                return (
+                  <button
+                    key={type}
+                    onClick={() => setSelectedFoodType(type)}
+                    style={{
+                      border:
+                        selectedFoodType === type ? "5px solid #548377" : "",
+                    }}
+                  >
+                    <img src={`icons/icon-${type}.svg`} className="food-btn" />
+                  </button>
+                );
+              })}
+            </div>
             <div className="input-container">
               <input
                 pattern="[A-Za-z]+"
@@ -154,7 +152,7 @@ function App() {
               Add Food
             </button>
           </div>
-          
+
           {isCorrectFoodInput === "null" || isCorrectFoodInput ? null : (
             <h4 className="error-message">
               Please insert a food name and an expiry date!
