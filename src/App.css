@@ -311,9 +311,6 @@ body {
   border: none;
 }
 
-.recipe-section {
-  max-width: 450px;
-}
 /* recipe btns */
 .recipe-section-btns {
   margin-top: 10px;

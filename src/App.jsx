@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import FoodCard from "./FoodCard";
+import { use } from "react";
 
 function App() {
   const date = new Date();
@@ -9,38 +10,39 @@ function App() {
   const todayDate = new Date().toISOString().split("T")[0];
 
   const [selectedFoodType, setSelectedFoodType] = useState("carbs");
-  const [food, setFood] = useState({});
   const [ingredient, setIngredient] = useState("");
   const [recipeList, setRecipeList] = useState([]);
   const [isCorrectFoodInput, setIsCorrectFoodInput] = useState("null");
-  const URL =
-    "https://api.spoonacular.com/recipes/findByIngredients?number=25&ignorePantry=true&ranking=1&apiKey=";
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const [food, setFood] = useState({});
   const [foodList, setFoodList] = useState([
     { name: "apples", expiryDate: todayDate, type: "greens" },
     { name: "tuna", expiryDate: todayDate, type: "meat" },
     { name: "yogurt", expiryDate: todayDate, type: "dairy" },
   ]);
+  const [nearExpireFoodArr, setNearExpireFoodArr] = useState([]);
 
-  const fetchData = async () => {
-    const nearExpireFoodArr = await foodList.filter((food, index) => {
-      console.log(food.expiryDate, isoStringDateAfterOneWeek);
-      console.log(
-        new Date(food.expiryDate),
-        new Date(isoStringDateAfterOneWeek)
-      );
+  useEffect(() => {
+    const nearExpireFoods = foodList.filter((food) => {
       return new Date(food.expiryDate) < new Date(isoStringDateAfterOneWeek);
     });
-    const nearExpireIngredients = await nearExpireFoodArr.map((food, index) => {
+    setNearExpireFoodArr(nearExpireFoods);
+  }, [foodList]);
+
+  const fetchData = async () => {
+    const nearExpireIngredients = nearExpireFoodArr.map((food) => {
       return food.name;
     });
-    const ingredientsStr = await nearExpireIngredients.join(`,+`);
-    console.log(ingredientsStr);
-    const response = await fetch(
-      `${URL}${apiKey}&ingredients=${ingredientsStr}`
-    );
-    const recipeData = await response.json();
-    setRecipeList(recipeData);
+    const ingredientsStr = nearExpireIngredients.join(`,+`);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/recipes?ingredients=${ingredientsStr}`
+      );
+      const recipeData = await response.json();
+      setRecipeList(recipeData);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+      setRecipeList([]);
+    }
   };
 
   const handleOnNameChange = (event) => {
@@ -53,7 +55,6 @@ function App() {
   };
 
   const handleOnAdd = () => {
-    console.log(food.name, food.expiryDate);
     if (food.name !== undefined && food.name !== "" && food.expiryDate) {
       setFoodList([...foodList, { ...food, type: selectedFoodType }]);
       setIsCorrectFoodInput(true);
@@ -77,10 +78,8 @@ function App() {
 
   const fetchRecipeInfo = async (recipe) => {
     const id = recipe.id;
-    const recipeURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${apiKey}`;
-    const response = await fetch(recipeURL);
+    const response = await fetch(`http://localhost:3000/api/recipe?id=${id}`);
     const recipeData = await response.json();
-    console.log(recipeData);
     const { spoonacularSourceUrl } = recipeData;
     // call new fucntion to go new link
     goToNewLink(spoonacularSourceUrl);
@@ -164,19 +163,15 @@ function App() {
           <h2 className="emf-text">Eat Me First!</h2>
           <h4 className="emf-subheading">Food expiring within 1 week: </h4>
           <div id="eat-me-first">
-            {foodList.map((food, index) => {
+            {nearExpireFoodArr.map((food, index) => {
               return (
-                <div key={index}>
-                  {food.expiryDate < isoStringDateAfterOneWeek ? (
-                    <FoodCard
-                      key={index}
-                      name={food.name}
-                      date={food.expiryDate}
-                      index={index}
-                      foodType={food.type}
-                    />
-                  ) : null}
-                </div>
+                <FoodCard
+                  key={index}
+                  name={food.name}
+                  date={food.expiryDate}
+                  index={index}
+                  foodType={food.type}
+                />
               );
             })}
           </div>
