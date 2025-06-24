@@ -35,7 +35,7 @@ function App() {
     const ingredientsStr = nearExpireIngredients.join(`,+`);
     try {
       const response = await fetch(
-        `http://localhost:3000/api/recipes?ingredients=${ingredientsStr}`
+        `https://zero-waste-recipe-app.onrender.com/api/recipes?ingredients=${ingredientsStr}`
       );
       const recipeData = await response.json();
       setRecipeList(recipeData);
@@ -78,7 +78,7 @@ function App() {
 
   const fetchRecipeInfo = async (recipe) => {
     const id = recipe.id;
-    const response = await fetch(`http://localhost:3000/api/recipe?id=${id}`);
+    const response = await fetch(`https://zero-waste-recipe-app.onrender.com/api/recipe?id=${id}`);
     const recipeData = await response.json();
     const { spoonacularSourceUrl } = recipeData;
     // call new fucntion to go new link
