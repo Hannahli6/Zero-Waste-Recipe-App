@@ -124,7 +124,7 @@ function App() {
                         selectedFoodType === type ? "3px solid #548377" : "",
                     }}
                   >
-                    <img src={`icons/icon-${type}.svg`} className="food-btn" />
+                    <img src={`/icons/icon-${type}.svg`} className="food-btn" />
                   </button>
                 );
               })}

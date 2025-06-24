@@ -12,15 +12,15 @@ main {
 
 @font-face {
   font-family: Nunito;
-  src: url("../fonts/Nunito-Regular.ttf");
+  src: url("/fonts/Nunito-Regular.ttf");
 }
 @font-face {
   font-family: League Spartan;
-  src: url("../fonts/LeagueSpartan-Bold.otf");
+  src: url("/fonts/LeagueSpartan-Bold.otf");
 }
 @font-face {
   font-family: Open Sans Light;
-  src: url("../fonts/OpenSans-Light.ttf");
+  src: url("/fonts/OpenSans-Light.ttf");
 }
 h1 {
   font-family: League Spartan;
@@ -56,7 +56,7 @@ button {
 }
 body {
   /* height: 100vh; */
-  background-image: url(../images/background.svg);
+  background-image: url(/images/background.svg);
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #ffffffbe;
